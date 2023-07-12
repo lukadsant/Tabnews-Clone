@@ -8,7 +8,9 @@ function Home() {
       const alturaTela = window.innerHeight; // Altura da tela em pixels
   
       // Exibir as informações do visitante
-      return `<h1>Bem-vindo visitante!</h1>
+      return `
+              cafe
+              <h1>Bem-vindo visitante!</h1>
               <p>Seu navegador é: ${navegador}</p>
               <p>Sistema operacional: ${plataforma}</p>
               <p>Idioma: ${idioma}</p>
