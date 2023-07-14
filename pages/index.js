@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function getBrowserName(userAgent) {
   const browsers = {
@@ -17,15 +17,15 @@ function getBrowserName(userAgent) {
     }
   }
 
-  return 'Unknown';
+  return "Unknown";
 }
 
 function Home() {
   const [visitorInfo, setVisitorInfo] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log(window)
+    if (typeof window !== "undefined") {
+      console.log(window);
       const userAgent = window.navigator.userAgent;
       const plataforma = window.navigator.platform;
       const idioma = window.navigator.language;
@@ -33,8 +33,12 @@ function Home() {
       const alturaTela = window.innerHeight;
       const navegador = getBrowserName(userAgent);
 
-      const connectionType = navigator.connection ? navigator.connection.type : 'Unknown';
-      const connectionSpeed = navigator.connection ? navigator.connection.downlink : 'Unknown';
+      const connectionType = navigator.connection
+        ? navigator.connection.type
+        : "Unknown";
+      const connectionSpeed = navigator.connection
+        ? navigator.connection.downlink
+        : "Unknown";
 
       setVisitorInfo({
         navegador,
@@ -49,14 +53,23 @@ function Home() {
   }, []);
 
   if (visitorInfo) {
-    console.log(visitorInfo)
+    console.log(visitorInfo);
     return (
       <div>
         <h1>Bem-vindo visitante!</h1>
-        <img src="https://media.giphy.com/media/czvoPCnFyjh6w/giphy.gif" alt="BMO DANCING"></img>
+        <img
+          src="https://media.giphy.com/media/czvoPCnFyjh6w/giphy.gif"
+          alt="BMO DANCING"
+        ></img>
         <br />
-        <p>Você sabia que os navegadores compartilham por padrão algumas informações básicas?</p>
-        <p>Essas são algumas informações suas que estão acessíveis através do objeto window.navigator:</p>
+        <p>
+          Você sabia que os navegadores compartilham por padrão algumas
+          informações básicas?
+        </p>
+        <p>
+          Essas são algumas informações suas que estão acessíveis através do
+          objeto window.navigator:
+        </p>
         <br />
         <p>Seu navegador é baseado em: {visitorInfo.navegador}</p>
         <p>Sistema operacional: {visitorInfo.plataforma}</p>
@@ -71,7 +84,11 @@ function Home() {
     return (
       <div>
         <h1>Bem-vindo visitante!</h1>
-        <p>Nossa, Eu iria ti impressionar com um monte de dados básico que a conexão da internet disponibiliza, mais... parece que você está utilizando alguma coisa estranha... seria uma geladeira?</p>
+        <p>
+          Nossa, Eu iria ti impressionar com um monte de dados básico que a
+          conexão da internet disponibiliza, mais... parece que você está
+          utilizando alguma coisa estranha... seria uma geladeira?
+        </p>
       </div>
     );
   }
