@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
+
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 function getBrowserName(userAgent) {
   const browsers = {
@@ -58,10 +59,11 @@ function Home() {
     return (
       <div>
         <h1>Bem-vindo visitante!</h1>
-        <Image
+        <img
           src="https://media.giphy.com/media/czvoPCnFyjh6w/giphy.gif"
-          alt="BMO DANCING"
-        />
+          alt="BMO
+          DANCING"
+        ></img>
         <br />
         <p>
           Você sabia que os navegadores compartilham por padrão algumas
@@ -81,7 +83,8 @@ function Home() {
         <p>Velocidade da conexão: {visitorInfo.connectionSpeed} Mbps</p>
         <br />
         <p>
-          Outro detalhe é que Carina é o amo da minha vida, te amo amor!! 🤞🏽💍❤
+          Outro detalhe é que Carina é o amor da minha vida, ti amo minha
+          estrela em forma de gente!! 🤞🏽💍❤
         </p>
       </div>
     );
