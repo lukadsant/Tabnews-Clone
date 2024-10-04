@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function getBrowserName(userAgent) {
   const browsers = {
@@ -57,10 +58,10 @@ function Home() {
     return (
       <div>
         <h1>Bem-vindo visitante!</h1>
-        <img
+        <Image
           src="https://media.giphy.com/media/czvoPCnFyjh6w/giphy.gif"
           alt="BMO DANCING"
-        ></img>
+        />
         <br />
         <p>
           Você sabia que os navegadores compartilham por padrão algumas
@@ -78,6 +79,10 @@ function Home() {
         <p>Altura da tela: {visitorInfo.alturaTela}px</p>
         <p>Tipo de conexão: {visitorInfo.connectionType}</p>
         <p>Velocidade da conexão: {visitorInfo.connectionSpeed} Mbps</p>
+        <br />
+        <p>
+          Outro detalhe é que Carina é o amo da minha vida, te amo amor!! 🤞🏽💍❤
+        </p>
       </div>
     );
   } else {
