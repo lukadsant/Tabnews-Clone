@@ -6,17 +6,26 @@ beforeAll(async () => {
   await database.query("drop schema public cascade; create schema public;");
 });
 
-test("GET to api/v1/migrations deve retornar 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
-    method: "POST",
+describe("POST api/v1/migrations", () => {
+  describe("Anonimous user", () => {
+    describe("Running pending migrations", () => {
+      test("for the first time", async () => {
+        const response = await fetch(
+          "http://localhost:3000/api/v1/migrations",
+          {
+            method: "POST",
+          },
+        );
+        expect(response.status).toBe(201);
+
+        const responseBody = await response.json();
+
+        const migrationsResult = await database.query(
+          "SELECT * FROM public.pgmigrations",
+        );
+        expect(Array.isArray(responseBody)).toBe(true);
+        expect(responseBody.length).toEqual(migrationsResult.rows.length);
+      });
+    });
   });
-  expect(response.status).toBe(201);
-
-  const responseBody = await response.json();
-
-  const migrationsResult = await database.query(
-    "SELECT * FROM public.pgmigrations",
-  );
-  expect(Array.isArray(responseBody)).toBe(true);
-  expect(responseBody.length).toEqual(migrationsResult.rows.length);
 });
