@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function getBrowserName(userAgent) {
   const browsers = {
@@ -41,16 +42,76 @@ function Home() {
       const connectionSpeed = navigator.connection
         ? navigator.connection.downlink
         : "Unknown";
+      const horarioLocal = new Date().toLocaleString();
+      const fusoHorario = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const estaOnline = navigator.onLine;
+      const resolucaoTotal = `${window.screen.width}x${window.screen.height}`;
+      const profundidadeCor = window.screen.colorDepth;
+      const cpus = navigator.hardwareConcurrency || "Desconhecido";
+      const ram = navigator.deviceMemory || "Desconhecido";
+      const isMobile = /Mobi/i.test(navigator.userAgent);
+      const aceitaCookies = navigator.cookieEnabled; // Adiciona definição de aceitaCookies
+      navigator.permissions
+        ?.query({ name: "geolocation" })
+        .then((result) => {
+          const permissaoGeolocalizacao = result.state;
 
-      setVisitorInfo({
-        navegador,
-        plataforma,
-        idioma,
-        larguraTela,
-        alturaTela,
-        connectionType,
-        connectionSpeed,
-      });
+          // 👾 WebGL – info da GPU
+          let infoGPU = "Desconhecido";
+          try {
+            const canvas = document.createElement("canvas");
+            const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+            if (gl) {
+              infoGPU = gl.getParameter(gl.RENDERER);
+            }
+          } catch (error) {
+            infoGPU = "Não suportado";
+          }
+
+          setVisitorInfo({
+            navegador,
+            plataforma,
+            idioma,
+            larguraTela,
+            alturaTela,
+            connectionType,
+            connectionSpeed,
+            horarioLocal,
+            fusoHorario,
+            estaOnline,
+            aceitaCookies,
+            resolucaoTotal,
+            profundidadeCor,
+            cpus,
+            ram,
+            isMobile,
+            permissaoGeolocalizacao,
+            infoGPU,
+          });
+        })
+        .catch(() => {
+          // fallback se não conseguir checar permissões
+          setVisitorInfo({
+            navegador,
+            plataforma,
+            idioma,
+            larguraTela,
+            alturaTela,
+            connectionType,
+            connectionSpeed,
+            horarioLocal,
+            fusoHorario,
+            estaOnline,
+            aceitaCookies,
+            resolucaoTotal,
+            profundidadeCor,
+            cpus,
+            ram,
+            isMobile,
+            permissaoGeolocalizacao: "Desconhecido",
+            infoGPU: "Desconhecido",
+          });
+        });
     }
   }, []);
 
@@ -59,11 +120,12 @@ function Home() {
     return (
       <div>
         <h1>Bem-vindo visitante!</h1>
-        <img
+        <Image
           src="https://media.giphy.com/media/czvoPCnFyjh6w/giphy.gif"
-          alt="BMO
-          DANCING"
-        ></img>
+          alt="BMO DANCING"
+          width={500}
+          height={300}
+        />
         <br />
         <p>
           Você sabia que os navegadores compartilham por padrão algumas
@@ -81,11 +143,29 @@ function Home() {
         <p>Altura da tela: {visitorInfo.alturaTela}px</p>
         <p>Tipo de conexão: {visitorInfo.connectionType}</p>
         <p>Velocidade da conexão: {visitorInfo.connectionSpeed} Mbps</p>
-        <br />
+        <p>Horário local: {visitorInfo.horarioLocal}</p>
+        <p>Fuso horário: {visitorInfo.fusoHorario}</p>
+        <p>Você está online? {visitorInfo.estaOnline ? "Sim" :
+          "Não"}</p>
+        <p>Você aceita cookies? {visitorInfo.aceitaCookies ? "Sim" : "Não"}</p>
+        <p>Resolução total da tela: {visitorInfo.resolucaoTotal}</p>
+        <p>Profundidade de cor: {visitorInfo.profundidadeCor}-bit</p>
+        <p>Quantidade de CPUs: {visitorInfo.cpus}</p>
+        <p>Memória RAM: {visitorInfo.ram} GB</p>
         <p>
-          Outro detalhe é que Carina é o amor da minha vida, ti amo minha
-          estrela em forma de gente!! 🤞🏽💍❤
+          Você está acessando este site de um dispositivo {visitorInfo.isMobile ? "móvel" : "desktop"}.
         </p>
+        <p>
+          Permissão de geolocalização: {visitorInfo.permissaoGeolocalizacao}
+        </p>
+        <p>
+          Informações da GPU: {visitorInfo.infoGPU}
+        </p>
+        <p>
+          Você está acessando este site de um dispositivo{" "}
+          {visitorInfo.isMobile ? "móvel" : "desktop"}.
+        </p>
+        <br />
       </div>
     );
   } else {
