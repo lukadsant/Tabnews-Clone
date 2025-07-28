@@ -60,7 +60,9 @@ function Home() {
           let infoGPU = "Desconhecido";
           try {
             const canvas = document.createElement("canvas");
-            const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+            const gl =
+              canvas.getContext("webgl") ||
+              canvas.getContext("experimental-webgl");
             if (gl) {
               infoGPU = gl.getParameter(gl.RENDERER);
             }
@@ -145,22 +147,20 @@ function Home() {
         <p>Velocidade da conexão: {visitorInfo.connectionSpeed} Mbps</p>
         <p>Horário local: {visitorInfo.horarioLocal}</p>
         <p>Fuso horário: {visitorInfo.fusoHorario}</p>
-        <p>Você está online? {visitorInfo.estaOnline ? "Sim" :
-          "Não"}</p>
+        <p>Você está online? {visitorInfo.estaOnline ? "Sim" : "Não"}</p>
         <p>Você aceita cookies? {visitorInfo.aceitaCookies ? "Sim" : "Não"}</p>
         <p>Resolução total da tela: {visitorInfo.resolucaoTotal}</p>
         <p>Profundidade de cor: {visitorInfo.profundidadeCor}-bit</p>
         <p>Quantidade de CPUs: {visitorInfo.cpus}</p>
         <p>Memória RAM: {visitorInfo.ram} GB</p>
         <p>
-          Você está acessando este site de um dispositivo {visitorInfo.isMobile ? "móvel" : "desktop"}.
+          Você está acessando este site de um dispositivo{" "}
+          {visitorInfo.isMobile ? "móvel" : "desktop"}.
         </p>
         <p>
           Permissão de geolocalização: {visitorInfo.permissaoGeolocalizacao}
         </p>
-        <p>
-          Informações da GPU: {visitorInfo.infoGPU}
-        </p>
+        <p>Informações da GPU: {visitorInfo.infoGPU}</p>
         <p>
           Você está acessando este site de um dispositivo{" "}
           {visitorInfo.isMobile ? "móvel" : "desktop"}.
